@@ -6,27 +6,21 @@ using UnityEngine;
 public class EnemyCoordinateLabeler : MonoBehaviour
 {
     private TextMeshPro label;
-    private Vector2Int coordinates;
+    private EnemyHealth enemyHealth;
 
-    private void Awake()
+    private void Start()
     {
         label = GetComponent<TextMeshPro>();
+        enemyHealth = FindObjectOfType<EnemyHealth>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        if (!Application.isPlaying)
-        {
-            DisplayCoordinates();
-        }
+        DisplayHealth();
     }
 
-    private void DisplayCoordinates()
+    private void DisplayHealth()
     {
-        coordinates.x = Mathf.RoundToInt(transform.parent.position.x / EditorSnapSettings.move.x);
-        coordinates.y = Mathf.RoundToInt(transform.parent.position.z / EditorSnapSettings.move.z);
-
-        label.text = $"[{coordinates.x.ToString()}, {coordinates.y.ToString()}]";
+        label.text = $"{enemyHealth.CurrentHealth}";
     }
 }

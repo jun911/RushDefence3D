@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1493597223320275738}
+  - component: {fileID: 631611813888216472}
   - component: {fileID: 5193132339792303576}
   m_Layer: 0
   m_Name: Tile
@@ -34,6 +35,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &631611813888216472
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493597223320275741}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1, z: 10}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!114 &5193132339792303576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,6 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925a09c8987066441a6c972690f9888a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 3219458064393657486, guid: 8a965e088bae16643aab3d07ccfd5e2e, type: 3}
+  isPlaceable: 1
 --- !u!1 &4959065309726910474
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +121,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1228359746532594700, guid: 70c4dabe5944e3640859bd11fb61e4a0, type: 2}
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,8 +165,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0,0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 70c4dabe5944e3640859bd11fb61e4a0, type: 2}
-  m_sharedMaterial: {fileID: -1228359746532594700, guid: 70c4dabe5944e3640859bd11fb61e4a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
