@@ -3,8 +3,8 @@ using UnityEngine;
 public class TargetLocator : MonoBehaviour
 {
     [SerializeField] private Transform weapon;
-    [SerializeField] float range = 15f;
-    [SerializeField] float targetDistance;
+    [SerializeField] private float range = 15f;
+    [SerializeField] private float targetDistance;
 
     private Transform target;
 
@@ -44,8 +44,6 @@ public class TargetLocator : MonoBehaviour
     private void Attack(bool isAttack)
     {
         var emission = transform.GetComponentInChildren<ParticleSystem>().emission;
-        if(isAttack && emission.enabled) { return; }
-        
         emission.enabled = isAttack;
     }
 }

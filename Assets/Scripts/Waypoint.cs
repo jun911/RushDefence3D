@@ -2,18 +2,13 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private Tower towerPrefab;
 
     [Tooltip("구조물 설치 가능 여부")]
     [SerializeField] private bool isPlaceable;
 
     public bool IsPlaceable
-    {
-        get
-        {
-            return isPlaceable;
-        }
-    }
+    { get { return isPlaceable; } }
 
     private void OnMouseDown()
     {
@@ -27,8 +22,7 @@ public class Waypoint : MonoBehaviour
     {
         if (isPlaceable)
         {
-            Instantiate(towerPrefab, transform.position, Quaternion.identity);
-            isPlaceable = false;
+            isPlaceable = !towerPrefab.CreateTower(towerPrefab, transform.position);
         }
     }
 }

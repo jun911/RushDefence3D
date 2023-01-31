@@ -1,12 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] [Range(0f, 5f)] private float speed = 1f;
+    [SerializeField][Range(0f, 5f)] private float speed = 1f;
     private List<Waypoint> path = new List<Waypoint>();
+
+    private Enemy enemy;
+
+    private void Awake()
+    {
+        enemy = transform.GetComponent<Enemy>();
+    }
 
     private void OnEnable()
     {
@@ -15,21 +23,28 @@ public class EnemyMover : MonoBehaviour
         StartCoroutine(FollowPath());
     }
 
-    void FindPath()
+    private void FindPath()
     {
         path.Clear();
 
-        GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Path");
-        
-        foreach (GameObject waypoint in waypoints)
+        GameObject waypoints = GameObject.FindGameObjectWithTag("Path");
+
+        foreach (Transform child in waypoints.transform)
         {
-            path.Add(waypoint.GetComponent<Waypoint>());
+            Waypoint waypoint = child.GetComponent<Waypoint>();
+            if (waypoint != null)
+            {
+                path.Add(waypoint);
+            }
         }
     }
 
-    void ReturnToStart()
+    private void ReturnToStart()
     {
-        transform.position = path[0].transform.position;
+        if (path[0] != null)
+        {
+            transform.position = path[0].transform.position;
+        }
     }
 
     private IEnumerator FollowPath()
@@ -51,6 +66,12 @@ public class EnemyMover : MonoBehaviour
             }
         }
 
+        FinishPath();
+    }
+
+    private void FinishPath()
+    {
         gameObject.SetActive(false);
+        enemy.StealGold();
     }
 }
