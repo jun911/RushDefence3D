@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbbb7f15e49dfb49a2e8b9b5a966d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.06
+  speed: 0.68
 --- !u!114 &7500089116647210166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  currentHealth: 0
+  difficultyRamp: 1
 --- !u!114 &-8434047840862876770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfc7c2fe5d24a8499cb267d80724053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldReward: 25
+  goldPenalty: 25
 --- !u!1 &7595203732597466618
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +275,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -300,8 +302,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.5
-  m_fontSizeBase: 11.5
+  m_fontSize: 23.53
+  m_fontSizeBase: 23.53
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

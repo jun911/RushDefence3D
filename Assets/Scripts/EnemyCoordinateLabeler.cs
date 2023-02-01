@@ -21,6 +21,9 @@ public class EnemyCoordinateLabeler : MonoBehaviour
 
     private void DisplayHealth()
     {
-        label.text = $"{enemyHealth.CurrentHealth}";
+        if (enemyHealth != null)
+        {
+            label.text = $"{enemyHealth.CurrentHealth}";
+        }
     }
 }
