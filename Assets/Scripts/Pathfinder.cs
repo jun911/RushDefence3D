@@ -3,10 +3,19 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-    [SerializeField] private Node currentSearchNode;
+    [SerializeField] Vector2Int startCoordinates;
+    [SerializeField] Vector2Int destinateCoordinates;
+
+    private Node startNode;
+    private Node destinateNode;
+    private Node currentSearchNode;
+
+    Queue<Node> frontier = new Queue<Node>();
+    Dictionary<Vector2Int, Node> reached = new Dictionary<Vector2Int, Node>();
+
     private Vector2Int[] directions = { Vector2Int.right, Vector2Int.left, Vector2Int.up, Vector2Int.down };
     private GridManager gridManager;
-    private Dictionary<Vector2Int, Node> grid;
+    private Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
 
     private void Awake()
     {
@@ -16,11 +25,34 @@ public class Pathfinder : MonoBehaviour
         {
             grid = gridManager.Grid;
         }
+
+        startNode = new Node(startCoordinates, true);
+        destinateNode = new Node(destinateCoordinates, true);
     }
 
     private void Start()
     {
-        ExploreNeighbors();
+        BreadthFirstSearch();
+    }
+
+    private void BreadthFirstSearch()
+    {
+        bool isRunning = true;
+
+        frontier.Enqueue(startNode);
+        reached.Add(startCoordinates, startNode);
+
+        while (frontier.Count > 0 && isRunning)
+        {
+            currentSearchNode = frontier.Dequeue();
+            currentSearchNode.isExplored = true;
+            ExploreNeighbors();
+
+            if (currentSearchNode.coordinates == destinateCoordinates)
+            {
+                isRunning = false;
+            }
+        }
     }
 
     private void ExploreNeighbors()
@@ -34,10 +66,15 @@ public class Pathfinder : MonoBehaviour
             if (grid.ContainsKey(neighborCoords))
             {
                 neighbors.Add(grid[neighborCoords]);
+            }
+        }
 
-                // TODO: Remove after testing
-                grid[neighborCoords].isExplored = true;
-                grid[currentSearchNode.coordinates].isPath = true;
+        foreach (Node neighbor in neighbors)
+        {
+            if(reached.ContainsKey(neighbor.coordinates) == false && neighbor.isWalkable)
+            {
+                reached.Add(neighbor.coordinates, neighbor);
+                frontier.Enqueue(neighbor);
             }
         }
     }
