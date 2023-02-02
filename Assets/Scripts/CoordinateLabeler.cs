@@ -6,19 +6,24 @@ using UnityEngine;
 public class CoordinateLabeler : MonoBehaviour
 {
     [SerializeField] private Color defaultcolor = Color.white;
-    [SerializeField] private Color blockedColor = Color.gray;
+    [SerializeField] private Color blockedColor = Color.red;
+    [SerializeField] private Color exploredColor = Color.yellow;
+    [SerializeField] private Color pathColor = new Color(1f, 0.5f, 0f);
 
     private Vector2Int coordinates = new Vector2Int();
     private TextMeshPro label;
 
-    private Waypoint waypoint;
+    GridManager gridManager;
+
+    //private Waypoint waypoint;
 
     private void Awake()
     {
+        gridManager = FindObjectOfType<GridManager>();
         label = GetComponent<TextMeshPro>();
         label.enabled = true;
+
         DisplayCoordinates();
-        waypoint = GetComponentInParent<Waypoint>();
     }
 
     private void Update()
@@ -44,7 +49,27 @@ public class CoordinateLabeler : MonoBehaviour
 
     private void SetLabelColor()
     {
-        label.color = waypoint.IsPlaceable ? defaultcolor : blockedColor;
+        if(gridManager == null) { return;  }
+
+        Node node = gridManager.GetNode(coordinates);
+
+        if (node == null) { return; }
+
+        if (!node.isWalkable)
+        {
+            label.color = blockedColor;
+        }
+        else if(node.isPath)
+        {
+            label.color = pathColor;
+        }
+        else if(node.isExplored)
+        {
+            label.color = exploredColor;
+        }else
+        {
+            label.color = defaultcolor;
+        }
     }
 
     private void DisplayCoordinates()

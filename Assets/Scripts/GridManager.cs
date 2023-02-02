@@ -11,6 +11,11 @@ public class GridManager : MonoBehaviour
         CreateGrid();
     }
 
+    public Node GetNode(Vector2Int coordinate)
+    {
+        return grid.ContainsKey(coordinate) ? grid[coordinate] : null;
+    }
+
     private void CreateGrid()
     {
         for (int x = 0; x < gridSize.x; x++)
@@ -19,7 +24,7 @@ public class GridManager : MonoBehaviour
             {
                 Vector2Int coordinate = new Vector2Int(x, y);
                 grid.Add(coordinate, new Node(coordinate, true));
-                Debug.Log(grid[coordinate].coordinates + "=" + grid[coordinate].isWalkable);
+                //Debug.Log(grid[coordinate].coordinates + "=" + grid[coordinate].isWalkable);
             }
         }
     }
