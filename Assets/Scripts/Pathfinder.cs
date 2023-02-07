@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,8 +31,8 @@ public class Pathfinder : MonoBehaviour
     private void Start()
     {
         PathMakeInit();
-        BreadthFirstSearch();
-        BuildPath();
+
+        StartCoroutine(BreadthFirstSearch());
     }
 
     private void PathMakeInit()
@@ -40,12 +41,14 @@ public class Pathfinder : MonoBehaviour
         destinationNode = gridManager.Grid[destinationCoordinates];
     }
 
-    private void BreadthFirstSearch()
+    private IEnumerator BreadthFirstSearch()
     {
         bool isRunning = true;
 
         frontier.Enqueue(startNode);
         reached.Add(startCoordinates, startNode);
+
+        yield return new WaitForSeconds(0.1f);
 
         while (frontier.Count > 0 && isRunning)
         {
@@ -58,6 +61,8 @@ public class Pathfinder : MonoBehaviour
                 isRunning = false;
             }
         }
+
+        BuildPath();
     }
 
     private void ExploreNeighbors()
