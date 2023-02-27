@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,8 +32,15 @@ public class Pathfinder : MonoBehaviour
     private void Start()
     {
         PathMakeInit();
+        GetNewPath();
+    }
 
-        StartCoroutine(BreadthFirstSearch());
+    public List<Node> GetNewPath()
+    {
+        gridManager.ResetNodes();
+        BreadthFirstSearch();
+
+        return BuildPath();
     }
 
     private void PathMakeInit()
@@ -41,14 +49,15 @@ public class Pathfinder : MonoBehaviour
         destinationNode = gridManager.Grid[destinationCoordinates];
     }
 
-    private IEnumerator BreadthFirstSearch()
+    private void BreadthFirstSearch()
     {
+        frontier.Clear();
+        reached.Clear();
+
         bool isRunning = true;
 
         frontier.Enqueue(startNode);
         reached.Add(startCoordinates, startNode);
-
-        yield return new WaitForSeconds(0.1f);
 
         while (frontier.Count > 0 && isRunning)
         {
@@ -61,8 +70,6 @@ public class Pathfinder : MonoBehaviour
                 isRunning = false;
             }
         }
-
-        BuildPath();
     }
 
     private void ExploreNeighbors()
@@ -108,5 +115,30 @@ public class Pathfinder : MonoBehaviour
         path.Reverse();
 
         return path;
+    }
+
+    public bool WillBlockPath(Vector2Int coordinates)
+    {
+        if (grid.ContainsKey(coordinates))
+        {
+            bool previousState = grid[coordinates].isWalkable;
+
+            grid[coordinates].isWalkable = false;
+            List<Node> newPath = GetNewPath();
+            grid[coordinates].isWalkable = true;
+
+            if (newPath.Count <= 1)
+            {
+                GetNewPath();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void NotifyReceivers()
+    {
+        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
     }
 }

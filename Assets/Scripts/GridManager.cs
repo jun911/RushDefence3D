@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -6,8 +7,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Vector2Int gridSize;
 
     [Tooltip("World Grid Size - Should match UnityEditor snap settings.")]
-
     [SerializeField] private int unityGridSize = 10;
+
     public int UnityGridSize 
     { 
         get { return unityGridSize; } 
@@ -22,6 +23,16 @@ public class GridManager : MonoBehaviour
     private void Awake()
     {
         CreateGrid();
+    }
+
+    public void ResetNodes()
+    {
+        foreach(KeyValuePair<Vector2Int, Node> entry in grid)
+        {
+            entry.Value.connectedTo = null;
+            entry.Value.isExplored = false;
+            entry.Value.isPath = false;
+        }
     }
 
     public Node GetNode(Vector2Int coordinate)

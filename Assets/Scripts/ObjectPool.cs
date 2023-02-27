@@ -8,7 +8,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] [Range(0.1f, 30f)] private float spawnTimer = 1f;
     [SerializeField] private GameObject enemyPrefab;
 
-    private GameObject[] pool;
+    private GameObject[] pools;
 
     private void Awake()
     {
@@ -22,12 +22,15 @@ public class ObjectPool : MonoBehaviour
 
     private void PopulatePool()
     {
-        pool = new GameObject[poolSize];
+        pools = new GameObject[poolSize];
 
-        for (int i = 0; i < pool.Length; i++)
+        Debug.Log($"pool size:{pools.Length}");
+
+        for (int i = 0; i < pools.Length; i++)
         {
-            pool[i] = Instantiate(enemyPrefab, transform);
-            pool[i].SetActive(false);
+            Debug.Log("i:" + i);
+            pools[i] = Instantiate(enemyPrefab, transform);
+            pools[i].SetActive(false);
         }
     }
 
@@ -43,11 +46,11 @@ public class ObjectPool : MonoBehaviour
 
     private void EnableObjectInPool()
     {
-        for (int i = 0; i < pool.Length; i++)
+        for (int i = 0; i < pools.Length; i++)
         {
-            if(pool[i].activeInHierarchy == false)
+            if(pools[i].activeInHierarchy == false)
             {
-                pool[i].SetActive(true);
+                pools[i].SetActive(true);
                 break;
             }
         }
