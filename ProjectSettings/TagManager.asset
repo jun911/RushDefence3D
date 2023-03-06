@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Path
   - Towers
+  - Castle
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Tile
+  - PostProcessing
   - 
   - 
   - 
