@@ -43,7 +43,10 @@ public class TargetLocator : MonoBehaviour
 
     private void Attack(bool isAttack)
     {
-        var emission = transform.GetComponentInChildren<ParticleSystem>().emission;
-        emission.enabled = isAttack;
+        if (transform.GetComponentInChildren<ParticleSystem>() != null)
+        {
+            var emission = transform.GetComponentInChildren<ParticleSystem>().emission;
+            emission.enabled = isAttack;
+        }
     }
 }
