@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-    [SerializeField] private Vector2Int startCoordinates;
+    [SerializeField] public Vector2Int startCoordinates;
     [SerializeField] private Vector2Int destinationCoordinates;
 
     private Node startNode;
@@ -31,33 +31,32 @@ public class Pathfinder : MonoBehaviour
 
     private void Start()
     {
-        PathMakeInit();
         GetNewPath();
     }
 
     public List<Node> GetNewPath()
     {
+        return GetNewPath(startCoordinates);
+    }
+
+    public List<Node> GetNewPath(Vector2Int coordinates)
+    {
         gridManager.ResetNodes();
-        BreadthFirstSearch();
+        BreadthFirstSearch(coordinates);
 
         return BuildPath();
     }
 
-    private void PathMakeInit()
-    {
-        startNode = gridManager.Grid[startCoordinates];
-        destinationNode = gridManager.Grid[destinationCoordinates];
-    }
-
-    private void BreadthFirstSearch()
+    private void BreadthFirstSearch(Vector2Int coordinates)
     {
         frontier.Clear();
         reached.Clear();
 
         bool isRunning = true;
+        startNode = gridManager.Grid[coordinates];
 
         frontier.Enqueue(startNode);
-        reached.Add(startCoordinates, startNode);
+        reached.Add(coordinates, startNode);
 
         while (frontier.Count > 0 && isRunning)
         {
@@ -100,7 +99,7 @@ public class Pathfinder : MonoBehaviour
     private List<Node> BuildPath()
     {
         List<Node> path = new List<Node>();
-        Node currentNode = destinationNode;
+        Node currentNode = gridManager.Grid[destinationCoordinates];
 
         path.Add(currentNode);
         currentNode.isPath = true;
@@ -139,6 +138,6 @@ public class Pathfinder : MonoBehaviour
 
     public void NotifyReceivers()
     {
-        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("RecalculatePath", false, SendMessageOptions.DontRequireReceiver);
     }
 }

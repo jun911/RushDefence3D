@@ -27277,7 +27277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5193132339792303576, guid: 67a433e2a8a936c4fb38e95c4551127f, type: 3}
       propertyPath: isPlaceable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a433e2a8a936c4fb38e95c4551127f, type: 3}
@@ -33763,6 +33763,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1289614962437528245, guid: 1930c1132f3380d42a69bc5638d06374, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 9.189941
+      objectReference: {fileID: 0}
     - target: {fileID: 1289614962650562825, guid: 1930c1132f3380d42a69bc5638d06374, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -33922,12 +33926,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1891656315, guid: 98b89dff16f47c547a64959f700fb7c9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1891656315, guid: 98b89dff16f47c547a64959f700fb7c9, type: 3}
+      propertyPath: startCoordinates.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1891656315, guid: 98b89dff16f47c547a64959f700fb7c9, type: 3}
       propertyPath: startCoordinates.y
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1891656315, guid: 98b89dff16f47c547a64959f700fb7c9, type: 3}
       propertyPath: destinationCoordinates.x
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1891656315, guid: 98b89dff16f47c547a64959f700fb7c9, type: 3}
       propertyPath: destinationCoordinates.y
